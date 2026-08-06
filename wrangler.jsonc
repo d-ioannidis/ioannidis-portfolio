@@ -1,0 +1,33 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"main": ".open-next/worker.js",
+	"name": "dimitrios-ioannidis",
+	"compatibility_date": "2026-08-06",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	},
+	"services": [
+		{
+			"binding": "WORKER_SELF_REFERENCE",
+			"service": "dimitrios-ioannidis"
+		}
+	],
+	"images": {
+		"binding": "IMAGES"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"d1_databases": [
+		{
+			"binding": "dimitrios_portfolio_db",
+			"database_name": "dimitrios-portfolio-db",
+			"database_id": "c1f13ff5-3fae-4bbe-a716-a84fcfddc922",
+			"remote": true
+		}
+	]
+}

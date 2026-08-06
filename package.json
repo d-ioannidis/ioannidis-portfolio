@@ -6,16 +6,21 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "build": "next build",
     "install:ci": "bash scripts/install-ci.sh",
-    "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vite",
-    "build": "bash scripts/build-verified.sh",
+    "dev": "next dev",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "validate:artifact": "bash scripts/validate-artifact.sh",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate"
+    "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.2",
     "drizzle-orm": "0.45.2",
     "next": "16.2.6",
     "react": "19.2.6",
@@ -37,8 +42,8 @@
     "typescript": "5.9.3",
     "vinext": "0.0.50",
     "vite": "8.0.13",
-    "wrangler": "4.92.0"
+    "wrangler": "^4.119.0"
   },
   "type": "module",
-  "displayName": "Dimitrios Ioannidis \u2014 Portfolio"
+  "displayName": "Dimitrios Ioannidis — Portfolio"
 }
