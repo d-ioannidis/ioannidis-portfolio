@@ -26,8 +26,7 @@
 		{
 			"binding": "DB",
 			"database_name": "dimitrios-portfolio-db",
-			"database_id": "c1f13ff5-3fae-4bbe-a716-a84fcfddc922",
-			"remote": true
+			"database_id": "c1f13ff5-3fae-4bbe-a716-a84fcfddc922"
 		}
 	]
 }
