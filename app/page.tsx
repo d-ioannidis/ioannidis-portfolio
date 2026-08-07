@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const skills = [
@@ -30,7 +32,17 @@ export default function Home() {
         </div>
         <div className="signal-card" aria-label="Professional snapshot">
           <div className="signal-head"><span>PROFILE / 01</span><span>ACTIVE</span></div>
-          <div className="orb"><div className="orb-core">DI</div></div>
+          <div className="orb">
+            <div className="orb-core">
+              <Image
+                src="/dimitris.png"
+                alt="Dimitrios Ioannidis"
+                width={88}
+                height={88}
+                priority
+              />
+            </div>
+          </div>
           <div className="signal-grid">
             <div><strong>200+</strong><span>business clients</span></div>
             <div><strong>2 yrs</strong><span>industry experience</span></div>
