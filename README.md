@@ -2,7 +2,7 @@
 
 A modern personal portfolio presenting my experience, education, technical skills, and work in data science and software development.
 
-🌐 **Live website:** [dimitrios-ioannidis.dmitrisgr.chatgpt.site]()
+🌐 **Live website:** [dimitrios-ioannidis.dmitrisgr.chatgpt.site](https://dimitrios-ioannidis.dmitrisgr.chatgpt.site)
 💼 **LinkedIn:** [Dimitrios Ioannidis](https://www.linkedin.com/in/dimitrios-ioannidis-dev/)
 
 ## About
@@ -18,6 +18,9 @@ I am a Data Science MSc graduate with experience delivering technical solutions 
 * Direct LinkedIn and email contact links
 * Accessible, modern interface
 * Cloudflare-compatible deployment
+* Markdown-powered blog with featured and recent article layouts
+* Topic archives, reading time, syntax highlighting, and article navigation
+* SEO metadata, sitemap, RSS feed, and LinkedIn/email sharing
 
 ## Technology Stack
 
@@ -25,6 +28,7 @@ I am a Data Science MSc graduate with experience delivering technical solutions 
 * [React](https://react.dev/) — User-interface components
 * [TypeScript](https://www.typescriptlang.org/) — Type-safe development
 * CSS — Custom styling, layout, and responsive design
+* Markdown — Version-controlled article authoring
 * [Cloudflare Workers](https://workers.cloudflare.com/) — Hosting and deployment
 * [OpenNext for Cloudflare](https://opennext.js.org/cloudflare) — Next.js Cloudflare integration
 
@@ -68,7 +72,13 @@ ioannidis-portfolio/
 ├── app/
 │   ├── globals.css       # Global and responsive styling
 │   ├── layout.tsx        # Page layout and metadata
-│   └── page.tsx          # Main portfolio page
+│   ├── page.tsx          # Main portfolio page
+│   ├── blog/             # Blog index, article, and topic routes
+│   ├── rss.xml/          # RSS feed
+│   └── sitemap.ts        # Search-engine sitemap
+├── components/           # Shared site and article components
+├── content/articles/     # Markdown articles and starter template
+├── lib/articles.ts       # Article loading and metadata utilities
 ├── public/               # Résumé and other static files
 ├── scripts/              # Project utility scripts
 ├── worker/               # Cloudflare worker files
@@ -95,6 +105,16 @@ npm run deploy
 ```
 
 Cloudflare-specific settings can be changed in `wrangler.jsonc`.
+
+## Publishing an Article
+
+1. Copy `content/articles/_article-template.md`.
+2. Rename the copy using the URL you want, for example `my-new-article.md`.
+3. Complete the metadata and write the article in Markdown.
+4. Set `published: true`, then commit and push the file.
+5. Cloudflare rebuilds the site and publishes the article at `/blog/my-new-article`.
+
+Set `NEXT_PUBLIC_SITE_URL` to the production domain in Cloudflare so sitemap, RSS, and social URLs use the final address.
 
 ## Contact
 
