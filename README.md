@@ -2,7 +2,7 @@
 
 A modern personal portfolio presenting my experience, education, technical skills, and work in data science and software development.
 
-🌐 **Live website:** [dimitrios-ioannidis.dmitrisgr.chatgpt.site](https://dimitrios-ioannidis.dmitrisgr.chatgpt.site)
+🌐 **Live website:** [ioannidis.dev](https://ioannidis.dev)
 💼 **LinkedIn:** [Dimitrios Ioannidis](https://www.linkedin.com/in/dimitrios-ioannidis-dev/)
 
 ## About
