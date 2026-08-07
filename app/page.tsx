@@ -41,7 +41,14 @@ export default function Home() {
       </section>
 
       <section className="ticker" aria-label="Areas of expertise">
-        <div>DATA SCIENCE <span>✦</span> SOFTWARE ENGINEERING <span>✦</span> MACHINE LEARNING <span>✦</span> ERP &amp; AUTOMATION <span>✦</span></div>
+        <div className="ticker-track">
+          <div className="ticker-group">
+            DATA SCIENCE <span>✦</span> SOFTWARE ENGINEERING <span>✦</span> MACHINE LEARNING <span>✦</span> ERP &amp; AUTOMATION <span>✦</span>
+          </div>
+          <div className="ticker-group" aria-hidden="true">
+            DATA SCIENCE <span>✦</span> SOFTWARE ENGINEERING <span>✦</span> MACHINE LEARNING <span>✦</span> ERP &amp; AUTOMATION <span>✦</span>
+          </div>
+        </div>
       </section>
 
       <section className="section shell" id="work">
