@@ -37,8 +37,9 @@ export default function Home() {
               <Image
                 src="/dimitris.png"
                 alt="Dimitrios Ioannidis"
-                width={88}
-                height={88}
+                fill
+                className="object-cover"
+                sizes="160px"
                 priority
               />
             </div>
