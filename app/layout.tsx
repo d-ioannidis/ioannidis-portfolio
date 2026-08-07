@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://ioannidis-portfolio.pages.dev"),
   title: "Dimitrios Ioannidis | Data Scientist & Software Engineer",
   description: "Portfolio of Dimitrios Ioannidis, an Informatics Engineer and Data Science specialist building useful systems with data, machine learning, and software.",
   other: {
@@ -21,6 +22,12 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Dimitrios Ioannidis",
+    title: "Dimitrios Ioannidis | Data Scientist & Software Engineer",
+    description: "Data science, software engineering, and writing about useful systems.",
   },
 };
 

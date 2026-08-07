@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { SiteHeader } from "@/components/site-header";
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
@@ -10,15 +11,7 @@ const skills = [
 export default function Home() {
   return (
     <main>
-      <nav className="nav shell" aria-label="Main navigation">
-        <a className="mark" href="#top" aria-label="Dimitrios Ioannidis, home">DI<span>.</span></a>
-        <div className="navlinks">
-          <a href="#work">Work</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <a className="nav-cta" href="/dimitrios-ioannidis-resume.pdf" target="_blank">Résumé <Arrow /></a>
-      </nav>
+      <SiteHeader />
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
