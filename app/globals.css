@@ -168,7 +168,8 @@ em {
 
 .orb-core img {
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 25%;
+  transform: scale(0.94);
 }
 
 .signal-grid {
