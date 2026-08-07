@@ -158,20 +158,17 @@ em {
 }
 
 .orb-core {
-  width: 110px;
-  height: 110px;
-  border: 5px solid var(--lime);
-  border-radius: 50%;
+  position: relative;
+  width: 160px;
+  height: 160px;
   overflow: hidden;
-  background: var(--lime);
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .orb-core img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  transform: scale(1.45);
-  transform-origin: 50% 25%;
+  object-position: center 20%;
 }
 
 .signal-grid {
