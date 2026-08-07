@@ -17,7 +17,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="pulse" /> Based in Serres, Greece · Open to opportunities</p>
           <h1>I turn complex data into <em>useful systems.</em></h1>
-          <p className="intro">Data scientist and software engineer working at the intersection of machine learning, APIs, and business operations.</p>
+          <p className="intro">I&apos;m Dimitrios Ioannidis, an Informatics Engineer and Data Science MSc graduate focused on building practical, reliable systems. I work at the intersection of machine learning, APIs, and business operations, turning complex technical challenges into solutions that make everyday work simpler and more effective.</p>
           <div className="actions">
             <a className="button primary" href="#work">Explore my work <Arrow /></a>
             <a className="button secondary" href="mailto:dimitrios@ioannidis.dev">Let&apos;s talk</a>
