@@ -42,7 +42,11 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   const { env } = await getCloudflareContext({ async: true });
   const slug = (await params).slug;
   const visitorId = request.headers.get("x-visitor-id");
-  const body = await request.json().catch(() => ({}));
+  const parsed: unknown = await request.json().catch(() => null);
+  const body: Record<string, unknown> =
+    parsed !== null && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed as Record<string, unknown>
+      : {};
   await ensureStats(env.DB, slug);
 
   if (body.action === "impression") {

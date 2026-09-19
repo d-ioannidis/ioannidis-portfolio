@@ -8,7 +8,11 @@ function text(value: unknown, max: number) {
 export async function POST(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   const { env } = await getCloudflareContext({ async: true });
   const slug = (await params).slug;
-  const payload = await request.json().catch(() => ({}));
+  const parsed: unknown = await request.json().catch(() => null);
+  const payload: Record<string, unknown> =
+    parsed !== null && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed as Record<string, unknown>
+      : {};
 
   if (text(payload.website, 200)) return NextResponse.json({ ok: true });
   const name = text(payload.name, 80);
