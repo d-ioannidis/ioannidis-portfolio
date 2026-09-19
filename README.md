@@ -58,11 +58,12 @@ Open http://localhost:3000 in your browser.
 ## Available Commands
 
 ```bash
-npm run dev       # Start the development server
-npm run build     # Create a production build
-npm run lint      # Check the code for linting problems
-npm run preview   # Build and preview the Cloudflare version
-npm run deploy    # Deploy the project to Cloudflare
+npm run dev                # Generate article bundle and start the development server
+npm run articles:generate  # Rebuild the bundled Markdown article manifest
+npm run build              # Generate articles and create a production build
+npm run lint               # Check the code for linting problems
+npm run preview            # Generate articles and preview the Cloudflare version
+npm run deploy             # Generate articles and deploy to Cloudflare
 ```
 
 ## Project Structure
@@ -77,10 +78,12 @@ ioannidis-portfolio/
 │   ├── rss.xml/          # RSS feed
 │   └── sitemap.ts        # Search-engine sitemap
 ├── components/           # Shared site and article components
-├── content/articles/     # Markdown articles and starter template
-├── lib/articles.ts       # Article loading and metadata utilities
+├── content/
+│   ├── articles/         # Markdown article sources and starter template
+│   └── articles.generated.json # Bundled article sources for Worker-safe runtime access
+├── lib/articles.ts       # Article parsing and metadata utilities
 ├── public/               # Résumé and other static files
-├── scripts/              # Project utility scripts
+├── scripts/              # Project utility scripts, including article generation
 ├── worker/               # Cloudflare worker files
 ├── next.config.ts        # Next.js configuration
 ├── package.json          # Dependencies and commands
@@ -91,6 +94,8 @@ ioannidis-portfolio/
 ## Deployment
 
 The project is configured for deployment to Cloudflare Workers using OpenNext.
+
+The blog does not read Markdown files from the Worker filesystem at runtime. Before development and production builds, `scripts/generate-articles.mjs` packages the Markdown sources into `content/articles.generated.json`, which Next.js can bundle into the Worker.
 
 Before deploying, authenticate with Cloudflare:
 
@@ -111,8 +116,12 @@ Cloudflare-specific settings can be changed in `wrangler.jsonc`.
 1. Copy `content/articles/_article-template.md`.
 2. Rename the copy using the URL you want, for example `my-new-article.md`.
 3. Complete the metadata and write the article in Markdown.
-4. Set `published: true`, then commit and push the file.
-5. Cloudflare rebuilds the site and publishes the article at `/blog/my-new-article`.
+4. Set `published: true`.
+5. Run `npm run articles:generate` so the Worker-safe article bundle is updated.
+6. Commit the Markdown file and the updated `content/articles.generated.json`, then push.
+7. Cloudflare rebuilds the site and publishes the article at `/blog/my-new-article`.
+
+The development, build, preview, deploy, and upload workflows regenerate the bundle automatically as an additional safeguard.
 
 Set `NEXT_PUBLIC_SITE_URL` to the production domain in Cloudflare so sitemap, RSS, and social URLs use the final address.
 
