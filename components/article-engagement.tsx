@@ -31,6 +31,8 @@ export function ArticleEngagement({ slug }: { slug: string }) {
   const [favorite, setFavorite] = useState(false);
   const [commentStatus, setCommentStatus] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [engagementStatus, setEngagementStatus] = useState("");
+  const [liking, setLiking] = useState(false);
 
   useEffect(() => {
     const visitorId = getVisitorId();
@@ -50,22 +52,39 @@ export function ArticleEngagement({ slug }: { slug: string }) {
       body: shouldCount ? JSON.stringify({ action: "impression" }) : undefined,
       cache: "no-store",
     })
-      .then((response) => response.json())
-      .then((data) => setSummary(data))
-      .catch(() => {});
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Engagement unavailable");
+        const data: Summary = await response.json();
+        setSummary(data);
+        setEngagementStatus("");
+      })
+      .catch(() => {
+        if (shouldCount) sessionStorage.removeItem(impressionKey);
+        setEngagementStatus("Article stats are temporarily unavailable. Please try again later.");
+      });
   }, [slug]);
 
   async function toggleLike() {
-    const visitorId = getVisitorId();
-    const response = await fetch(`/api/articles/${encodeURIComponent(slug)}/engagement`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Visitor-Id": visitorId,
-      },
-      body: JSON.stringify({ action: "like" }),
-    });
-    if (response.ok) setSummary(await response.json());
+    if (liking) return;
+    setLiking(true);
+    setEngagementStatus("");
+    try {
+      const visitorId = getVisitorId();
+      const response = await fetch(`/api/articles/${encodeURIComponent(slug)}/engagement`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Visitor-Id": visitorId,
+        },
+        body: JSON.stringify({ action: "like" }),
+      });
+      if (!response.ok) throw new Error("Like could not be saved");
+      setSummary(await response.json());
+    } catch {
+      setEngagementStatus("Your like could not be saved. Please try again.");
+    } finally {
+      setLiking(false);
+    }
   }
 
   function toggleFavorite() {
@@ -76,33 +95,43 @@ export function ArticleEngagement({ slug }: { slug: string }) {
 
   async function submitComment(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting) return;
+    // React clears currentTarget after the handler yields, so keep the form itself.
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     setSubmitting(true);
     setCommentStatus("");
-    const form = new FormData(event.currentTarget);
-    const response = await fetch(`/api/articles/${encodeURIComponent(slug)}/comments`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: form.get("name"),
-        email: form.get("email"),
-        body: form.get("body"),
-        website: form.get("website"),
-      }),
-    });
-    setSubmitting(false);
-    if (response.ok) {
-      event.currentTarget.reset();
-      setCommentStatus("Thanks — your comment is awaiting approval.");
-    } else {
-      const data = await response.json().catch(() => null);
-      setCommentStatus(data?.error ?? "The comment could not be submitted.");
+    try {
+      const response = await fetch(`/api/articles/${encodeURIComponent(slug)}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.get("name"),
+          email: form.get("email"),
+          body: form.get("body"),
+          website: form.get("website"),
+        }),
+      });
+      if (response.ok) {
+        formElement.reset();
+        setCommentStatus("Thanks — your comment is awaiting approval.");
+      } else {
+        const data: unknown = await response.json().catch(() => null);
+        const error = data !== null && typeof data === "object" && "error" in data
+          && typeof data.error === "string" ? data.error : null;
+        setCommentStatus(error ?? "The comment could not be submitted. Please try again.");
+      }
+    } catch {
+      setCommentStatus("The comment could not be submitted. Please check your connection and try again.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
   return (
     <section className="article-engagement" aria-label="Article engagement">
       <div className="engagement-stats">
-        <button type="button" className={summary.liked ? "engagement-button active" : "engagement-button"} onClick={toggleLike} aria-pressed={summary.liked}>
+        <button type="button" className={summary.liked ? "engagement-button active" : "engagement-button"} onClick={toggleLike} disabled={liking} aria-pressed={summary.liked}>
           <span aria-hidden="true">♥</span> {summary.likes} {summary.likes === 1 ? "like" : "likes"}
         </button>
         <button type="button" className={favorite ? "engagement-button active" : "engagement-button"} onClick={toggleFavorite} aria-pressed={favorite}>
@@ -110,6 +139,8 @@ export function ArticleEngagement({ slug }: { slug: string }) {
         </button>
         <span className="engagement-impressions">{summary.impressions.toLocaleString()} impressions</span>
       </div>
+
+      {engagementStatus ? <p className="comment-status" role="status">{engagementStatus}</p> : null}
 
       <div className="comments-section">
         <div>
