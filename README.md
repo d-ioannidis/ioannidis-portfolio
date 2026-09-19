@@ -21,6 +21,9 @@ I am a Data Science MSc graduate with experience delivering technical solutions 
 * Markdown-powered blog with featured and recent article layouts
 * Topic archives, reading time, syntax highlighting, and article navigation
 * SEO metadata, sitemap, RSS feed, and LinkedIn/email sharing
+* Persistent article likes and impression counts using Cloudflare D1
+* Browser-local article favorites
+* Moderated visitor comments
 
 ## Technology Stack
 
@@ -64,6 +67,8 @@ npm run build              # Generate articles and create a production build
 npm run lint               # Check the code for linting problems
 npm run preview            # Generate articles and preview the Cloudflare version
 npm run deploy             # Generate articles and deploy to Cloudflare
+npm run db:migrate:local    # Apply D1 migrations to the local database
+npm run db:migrate:remote   # Apply D1 migrations to the production D1 database
 ```
 
 ## Project Structure
@@ -135,3 +140,27 @@ Set `NEXT_PUBLIC_SITE_URL` to the production domain in Cloudflare so sitemap, RS
 ## License
 
 This portfolio and its source code are intended for personal use. Please do not copy its personal content, résumé, or branding without permission.
+
+
+## Article Engagement
+
+Article pages include shared likes, impression counts, local favorites, and comments.
+
+* **Likes** are stored in Cloudflare D1 and limited to one active like per browser-generated visitor ID and article.
+* **Impressions** are stored in D1. The browser increments an article once per tab/session to avoid counting reloads repeatedly.
+* **Favorites** are private browser-local bookmarks stored in `localStorage`; they are not uploaded.
+* **Comments** are stored in D1 with `approved = 0` and therefore do not appear publicly until moderated.
+
+Before deploying these features for the first time, apply the migration:
+
+```bash
+npm run db:migrate:remote
+```
+
+To approve a comment, use the Cloudflare D1 console or Wrangler. For example:
+
+```sql
+UPDATE article_comments SET approved = 1 WHERE id = 123;
+```
+
+Visitor email addresses are stored only for comment moderation and are never returned by the public comments API.
