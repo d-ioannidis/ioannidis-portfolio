@@ -23,24 +23,9 @@ My thesis therefore treated anomaly detection as the first stage of a larger dec
 
 The framework was designed as a modular pipeline:
 
-```text
-Static crisis data / Mastodon API
-              ↓
-        Data collection
-              ↓
-       Preprocessing
-              ↓
- DTM / TF-IDF / BERT features
-              ↓
-     Anomaly detection
-              ↓
-   Prioritized suspect posts
-          ↙         ↘
- Fact-checking       NLP
-  verifier      sentiment/emotion
-          ↘         ↙
-       Dashboard + feedback
-```
+![Cascaded crisis-monitoring pipeline showing data collection, preprocessing, feature extraction, anomaly detection, fact-checking, NLP analysis, dashboard review, and feedback.](/blog/msc-crisis-pipeline.svg)
+
+*The thesis architecture separates prioritization from verification: anomaly detection narrows the stream, while fact-checking, NLP analysis, and human review provide deeper interpretation.*
 
 The first layer is about **prioritization**. K-Means, DBSCAN, an autoencoder-based detector, and a hybrid DT-SVMNB model produce signals that help narrow a large stream of posts into a smaller set worth reviewing.
 
@@ -58,6 +43,14 @@ The second used a **Mastodon API prototype**. Public Mastodon posts were collect
 
 The two experiments were not intended to be equivalent benchmarks. The static dataset was the main environment for model evaluation. The Mastodon experiment was primarily a test of **deployment feasibility**: could a live or semi-live federated data source be connected without redesigning the entire system?
 
+| Aspect | Controlled experiment | Mastodon prototype |
+| --- | --- | --- |
+| Data source | Disaster Tweets CSV | Public Mastodon API posts |
+| Primary purpose | Reproducible model evaluation | Deployment and pipeline compatibility |
+| Main advantage | Stable, labelled benchmark | More realistic ingestion and platform variability |
+| Main limitation | Static rather than live | Smaller sample; several evaluation labels were simulated/synthetic |
+| Shared processing | Preprocessing, feature extraction, anomaly detection, fact-checking, NLP | Same downstream pipeline after schema mapping |
+
 That distinction turned out to be useful. A model can look convincing on a clean benchmark while the surrounding pipeline falls apart as soon as real API data arrives.
 
 ## Preparing text for very different models
@@ -69,6 +62,15 @@ The preprocessing stage normalized the posts by removing URLs and HTML, handling
 - **BERT embeddings** for dense contextual representations.
 
 This was not just an implementation detail. One of the clearest lessons from the experiments was that there was no universally best representation.
+
+The controlled-dataset anomaly results make that trade-off visible:
+
+| Model | Strongest ROC-AUC | Strongest PR-AUC |
+| --- | ---: | ---: |
+| K-Means | BERT — 0.59 | BERT — 0.30 |
+| DBSCAN | BERT — 0.56 | DTM — 0.33 |
+| Autoencoder | DTM — 0.57 | DTM — 0.27 |
+| Hybrid DT-SVMNB | TF-IDF / DTM — 0.51 | TF-IDF — 0.32 |
 
 In the detailed controlled-dataset results, BERT embeddings gave K-Means the strongest ROC-AUC of the three representations, while DTM produced the strongest result for the autoencoder. DBSCAN also behaved differently depending on whether the comparison was based on ROC-AUC or PR-AUC.
 
@@ -112,6 +114,18 @@ Sentiment classification reached **83.86% accuracy** in the controlled experimen
 
 Fine-grained emotion classification was much harder, reaching **49.71% accuracy**. The model tended to overpredict common crisis-related emotions such as fear while missing less frequent categories such as joy or surprise.
 
+![Bar chart comparing controlled-experiment accuracy for fact-checking, sentiment, and emotion classification.](/blog/msc-task-performance.svg)
+
+| Downstream component | Controlled-dataset result |
+| --- | ---: |
+| Fact-checking accuracy | 86.6% |
+| Fact-checking weighted F1 | 0.859 |
+| Fact-checking macro F1 | 0.783 |
+| Sentiment accuracy | 83.86% |
+| Emotion accuracy | 49.71% |
+
+*The accuracy chart compares the three downstream classification tasks only; anomaly-detection models were evaluated primarily with ROC-AUC and PR-AUC instead.*
+
 This is a useful distinction for system design. Broad sentiment can be reasonably helpful for summarizing the tone of a crisis stream. Fine-grained emotion labels need much more caution because emotional categories overlap and class imbalance can dominate the result.
 
 ## Moving the pipeline to Mastodon
@@ -131,6 +145,15 @@ That was the architectural result I cared about: **the analysis pipeline was no 
 The deployment-oriented Mastodon experiment processed a much smaller sample than the controlled dataset, so I treated its results cautiously.
 
 The hybrid DT-SVMNB model reached a **PR-AUC of 0.68** with both TF-IDF and DTM on the Mastodon sample, while its ROC-AUC was 0.58. That difference is a good example of why precision-recall metrics matter in anomaly detection: when suspicious cases are sparse, the ability to concentrate useful candidates near the top of a ranking can be more operationally relevant than global separation.
+
+| Mastodon anomaly model | Best ROC-AUC | Best PR-AUC |
+| --- | ---: | ---: |
+| K-Means | BERT — 0.71 | BERT — 0.45 |
+| DBSCAN | BERT — 0.67 | TF-IDF — 0.41 |
+| Autoencoder | BERT — 0.71 | TF-IDF — 0.39 |
+| Hybrid DT-SVMNB | TF-IDF / DTM — 0.58 | TF-IDF / DTM — 0.68 |
+
+These API-run scores are useful for understanding deployment behaviour, but they should not be read as a direct replacement for the controlled benchmark.
 
 The Mastodon fact-checking stage reported **81.2% accuracy** on 85 processed posts. However, this result has an important limitation: manually verified labels were not available for the API sample, so simulated verification labels were used to validate the evaluation workflow.
 
