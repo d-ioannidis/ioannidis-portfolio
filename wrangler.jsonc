@@ -27,7 +27,7 @@
     {
       "binding": "DB",
       "database_name": "dimitrios-portfolio-db",
-      "database_id": "c1f13ff5-3fae-4bbe-a716-a84fcfddc922",
+      "database_id": "5e80c16a-6ed2-49bc-83da-23bd024ea31b",
       "migrations_dir": "drizzle"
     }
   ],
