@@ -6,7 +6,9 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "build": "next build",
+    "articles:generate": "node scripts/generate-articles.mjs",
+    "predev": "npm run articles:generate",
+    "build": "npm run articles:generate && next build",
     "install:ci": "bash scripts/install-ci.sh",
     "dev": "next dev",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
@@ -14,9 +16,9 @@
     "validate:artifact": "bash scripts/validate-artifact.sh",
     "lint": "bash scripts/sites-env.sh -- eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "bash scripts/sites-env.sh -- drizzle-kit generate",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
+    "preview": "npm run articles:generate && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "npm run articles:generate && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "upload": "npm run articles:generate && opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
