@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Crisis social media analysis pipeline</title>
+  <desc id="desc">Static disaster tweet data or Mastodon posts enter a shared pipeline for collection, preprocessing, feature extraction, anomaly detection, fact checking, NLP analysis, dashboard review, and feedback.</desc>
+  <rect width="1200" height="720" fill="#f2f0e9"/>
+  <text x="60" y="64" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#101927">Cascaded crisis-monitoring pipeline</text>
+  <text x="60" y="96" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#53606b">Anomaly detection prioritizes content; downstream components interpret and verify it.</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#101927"/></marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#4057ff"/></marker>
+  </defs>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <rect x="60" y="150" width="225" height="88" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="172.5" y="184" text-anchor="middle" font-size="16" font-weight="700" fill="#101927">Controlled dataset</text>
+    <text x="172.5" y="208" text-anchor="middle" font-size="14" fill="#53606b">Disaster Tweets CSV</text>
+    <rect x="60" y="270" width="225" height="88" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="172.5" y="304" text-anchor="middle" font-size="16" font-weight="700" fill="#101927">Deployment prototype</text>
+    <text x="172.5" y="328" text-anchor="middle" font-size="14" fill="#53606b">Mastodon API posts</text>
+    <rect x="365" y="210" width="225" height="88" rx="8" fill="#d7ff43" stroke="#101927" stroke-width="2"/>
+    <text x="477.5" y="245" text-anchor="middle" font-size="17" font-weight="700" fill="#101927">Data collector</text>
+    <text x="477.5" y="269" text-anchor="middle" font-size="14" fill="#303b47">Shared internal schema</text>
+    <rect x="665" y="150" width="225" height="88" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="777.5" y="185" text-anchor="middle" font-size="17" font-weight="700" fill="#101927">Preprocessing</text>
+    <text x="777.5" y="209" text-anchor="middle" font-size="14" fill="#53606b">Clean, normalize, enrich</text>
+    <rect x="665" y="270" width="225" height="88" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="777.5" y="305" text-anchor="middle" font-size="17" font-weight="700" fill="#101927">Feature extraction</text>
+    <text x="777.5" y="329" text-anchor="middle" font-size="14" fill="#53606b">DTM · TF-IDF · BERT</text>
+    <rect x="945" y="210" width="195" height="88" rx="8" fill="#4057ff" stroke="#101927" stroke-width="2"/>
+    <text x="1042.5" y="244" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">Anomaly detection</text>
+    <text x="1042.5" y="266" text-anchor="middle" font-size="12" fill="#ffffff">K-Means · DBSCAN</text>
+    <text x="1042.5" y="282" text-anchor="middle" font-size="12" fill="#ffffff">autoencoder · hybrid</text>
+    <rect x="665" y="445" width="225" height="95" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="777.5" y="480" text-anchor="middle" font-size="17" font-weight="700" fill="#101927">Fact-checking verifier</text>
+    <text x="777.5" y="505" text-anchor="middle" font-size="14" fill="#53606b">Evidence-support categories</text>
+    <rect x="945" y="445" width="195" height="95" rx="8" fill="#ffffff" stroke="#101927" stroke-width="2"/>
+    <text x="1042.5" y="480" text-anchor="middle" font-size="17" font-weight="700" fill="#101927">NLP engine</text>
+    <text x="1042.5" y="505" text-anchor="middle" font-size="14" fill="#53606b">Sentiment + emotion</text>
+    <rect x="665" y="600" width="475" height="72" rx="8" fill="#101927"/>
+    <text x="902.5" y="629" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">Crisis dashboard + human review</text>
+    <text x="902.5" y="652" text-anchor="middle" font-size="13" fill="#d7ff43">Feedback updates thresholds and later decisions</text>
+  </g>
+  <g fill="none" stroke="#101927" stroke-width="3" marker-end="url(#arrow)">
+    <path d="M285 194 H330 Q345 194 355 214 L365 235"/>
+    <path d="M285 314 H330 Q345 314 355 294 L365 270"/>
+    <path d="M590 254 H625 Q645 254 655 214 L665 194"/>
+    <path d="M777 238 V270"/>
+    <path d="M890 314 H915 Q930 314 940 294 L945 276"/>
+    <path d="M1042 298 V408 Q1042 425 1027 445"/>
+    <path d="M1025 298 C990 355 875 392 820 445"/>
+    <path d="M777 540 V600"/>
+    <path d="M1042 540 V600"/>
+  </g>
+  <path d="M710 600 C520 585 500 440 610 370 C700 312 852 360 945 325" fill="none" stroke="#4057ff" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#arrowBlue)"/>
+  <text x="500" y="552" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#4057ff">feedback loop</text>
+</svg>
