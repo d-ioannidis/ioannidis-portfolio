@@ -32,7 +32,7 @@ The application used a traditional **LAMP** environment:
 
 That stack made the project a useful introduction to the boundaries between a browser, web server, application code, database, and supporting infrastructure.
 
-![Architecture of the electric vehicle data explorer, showing the browser, Apache/PHP application, MySQL database, and MailHog email-testing flow.](/blog/electric-cars-lamp-architecture.svg)
+![Architecture of the electric vehicle data explorer, showing the browser, Apache/PHP application, MySQL database, and MailHog email-testing flow.](/article-assets/electric-cars-lamp-architecture.svg)
 
 ## Configuring the web environment
 
