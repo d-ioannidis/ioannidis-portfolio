@@ -1,31 +1,37 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"main": ".open-next/worker.js",
-	"name": "ioannidis-portfolio",
-	"compatibility_date": "2026-08-07",
-	"compatibility_flags": [
-		"nodejs_compat"
-	],
-	"assets": {
-		"directory": ".open-next/assets",
-		"binding": "ASSETS"
-	},
-	"routes": [
-		{
-			"pattern": "ioannidis.dev",
-			"custom_domain": true
-		}
-	],
-	"services": [
-		{
-			"binding": "WORKER_SELF_REFERENCE",
-			"service": "ioannidis-portfolio"
-		}
-	],
-	"images": {
-		"binding": "IMAGES"
-	},
-	"observability": {
-		"enabled": true
-	}
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "ioannidis-portfolio",
+  "compatibility_date": "2026-08-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "routes": [
+    {
+      "pattern": "ioannidis.dev",
+      "custom_domain": true
+    }
+  ],
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "ioannidis-portfolio"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dimitrios-portfolio-db",
+      "database_id": "c1f13ff5-3fae-4bbe-a716-a84fcfddc922",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
 }
