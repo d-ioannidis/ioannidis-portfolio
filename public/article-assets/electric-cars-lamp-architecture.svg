@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">Electric vehicle data explorer architecture</title>
+<desc id="desc">A browser connects to an Apache virtual host running PHP. PHP queries a MySQL database containing user, models, and contact tables, and sends test mail through Postfix to MailHog.</desc>
+<rect width="1200" height="650" fill="#f2f0e9"/>
+<text x="60" y="62" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#101927">Electric Vehicle Data Explorer</text>
+<text x="60" y="94" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#53606b">University project architecture · LAMP stack + local SMTP testing</text>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3z" fill="#101927"/></marker></defs>
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="70" y="210" width="210" height="110" rx="8" fill="#fff" stroke="#101927" stroke-width="2"/>
+<text x="175" y="250" text-anchor="middle" font-size="20" font-weight="700" fill="#101927">Browser</text>
+<text x="175" y="279" text-anchor="middle" font-size="14" fill="#53606b">HTML · CSS · Bootstrap</text>
+<rect x="370" y="160" width="300" height="210" rx="10" fill="#101927"/>
+<text x="520" y="205" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">Apache + PHP</text>
+<text x="520" y="232" text-anchor="middle" font-size="14" fill="#d7ff43">electric-cars.local</text>
+<rect x="420" y="270" width="200" height="62" rx="6" fill="#4057ff"/>
+<text x="520" y="297" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">Application logic</text>
+<text x="520" y="317" text-anchor="middle" font-size="12" fill="#fff">forms · auth · search</text>
+<rect x="760" y="120" width="360" height="250" rx="10" fill="#fff" stroke="#101927" stroke-width="2"/>
+<text x="940" y="160" text-anchor="middle" font-size="20" font-weight="700" fill="#101927">MySQL · electric_cars</text>
+<rect x="800" y="200" width="90" height="90" rx="6" fill="#d7ff43" stroke="#101927"/>
+<text x="845" y="238" text-anchor="middle" font-size="14" font-weight="700">user</text>
+<text x="845" y="259" text-anchor="middle" font-size="11">accounts</text>
+<rect x="895" y="190" width="110" height="110" rx="6" fill="#4057ff" stroke="#101927"/>
+<text x="950" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">models</text>
+<text x="950" y="252" text-anchor="middle" font-size="11" fill="#fff">103 vehicles</text>
+<text x="950" y="270" text-anchor="middle" font-size="11" fill="#fff">16 fields</text>
+<rect x="1010" y="200" width="90" height="90" rx="6" fill="#fff" stroke="#101927"/>
+<text x="1055" y="238" text-anchor="middle" font-size="14" font-weight="700">contact</text>
+<text x="1055" y="259" text-anchor="middle" font-size="11">messages</text>
+<rect x="370" y="470" width="300" height="105" rx="8" fill="#fff" stroke="#101927" stroke-width="2"/>
+<text x="520" y="510" text-anchor="middle" font-size="18" font-weight="700">Postfix → MailHog</text>
+<text x="520" y="539" text-anchor="middle" font-size="13" fill="#53606b">Local SMTP / email testing</text>
+</g>
+<g fill="none" stroke="#101927" stroke-width="3" marker-end="url(#a)">
+<path d="M280 265 H370"/><path d="M670 265 H760"/><path d="M520 370 V470"/>
+</g>
+<text x="310" y="249" font-family="Arial" font-size="12" fill="#4057ff">HTTP</text>
+<text x="695" y="249" font-family="Arial" font-size="12" fill="#4057ff">SQL</text>
+<text x="538" y="425" font-family="Arial" font-size="12" fill="#4057ff">mail</text>
+</svg>
