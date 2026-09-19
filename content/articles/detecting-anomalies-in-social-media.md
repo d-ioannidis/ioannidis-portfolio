@@ -23,7 +23,7 @@ My thesis therefore treated anomaly detection as the first stage of a larger dec
 
 The framework was designed as a modular pipeline:
 
-![Cascaded crisis-monitoring pipeline showing data collection, preprocessing, feature extraction, anomaly detection, fact-checking, NLP analysis, dashboard review, and feedback.](/blog/msc-crisis-pipeline.svg)
+![Cascaded crisis-monitoring pipeline showing data collection, preprocessing, feature extraction, anomaly detection, fact-checking, NLP analysis, dashboard review, and feedback.](/article-assets/msc-crisis-pipeline.svg)
 
 *The thesis architecture separates prioritization from verification: anomaly detection narrows the stream, while fact-checking, NLP analysis, and human review provide deeper interpretation.*
 
@@ -114,7 +114,7 @@ Sentiment classification reached **83.86% accuracy** in the controlled experimen
 
 Fine-grained emotion classification was much harder, reaching **49.71% accuracy**. The model tended to overpredict common crisis-related emotions such as fear while missing less frequent categories such as joy or surprise.
 
-![Bar chart comparing controlled-experiment accuracy for fact-checking, sentiment, and emotion classification.](/blog/msc-task-performance.svg)
+![Bar chart comparing controlled-experiment accuracy for fact-checking, sentiment, and emotion classification.](/article-assets/msc-task-performance.svg)
 
 | Downstream component | Controlled-dataset result |
 | --- | ---: |

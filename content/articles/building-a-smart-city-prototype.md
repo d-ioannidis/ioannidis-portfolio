@@ -57,7 +57,7 @@ That deployment involved more than simply starting a container. The thesis docum
 
 I deliberately leave the historical IP addresses, credentials, and host-specific values out of this article. The important part is the architecture: the Smart City platform was moved from a local experiment to an internet-accessible service that could run continuously.
 
-![Smart City prototype architecture showing OpenWeatherMap over HTTP, a Python MQTT client, Docker-hosted OpenRemote on an Ubuntu VPS, DNS and TLS, and the adaptive-lighting scenario.](/blog/bsc-smart-city-architecture.svg)
+![Smart City prototype architecture showing OpenWeatherMap over HTTP, a Python MQTT client, Docker-hosted OpenRemote on an Ubuntu VPS, DNS and TLS, and the adaptive-lighting scenario.](/article-assets/bsc-smart-city-architecture.svg)
 
 *The deployment joined cloud hosting, API ingestion, MQTT device-style messaging, OpenRemote assets and rules, and a public-access layer into one prototype.*
 
@@ -151,7 +151,7 @@ The rules described in the thesis included:
 | More than 50 | 80% |
 | 200 or more | 100% |
 
-![Bar chart showing selected adaptive-lighting rules: 0 percent at zero people, 15 percent below 20 people, 80 percent above 50 people, and 100 percent at 200 or more people.](/blog/bsc-lighting-response.svg)
+![Bar chart showing selected adaptive-lighting rules: 0 percent at zero people, 15 percent below 20 people, 80 percent above 50 people, and 100 percent at 200 or more people.](/article-assets/bsc-lighting-response.svg)
 
 *These are selected rule examples documented in the thesis rather than a complete continuous mapping for every possible crowd size.*
 

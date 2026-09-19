@@ -12,10 +12,10 @@ Open with the problem, observation, or question that makes the article useful.
 
 ## First section
 
-Write in Markdown. Add images to `public/blog/` and embed one with:
+Write in Markdown. Add images to `public/article-assets/` and embed one with:
 
 ```md
-![Useful alternative text](/blog/your-image.jpg)
+![Useful alternative text](/article-assets/your-image.jpg)
 ```
 
 ## Code example

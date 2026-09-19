@@ -30,7 +30,7 @@ The project began with an entity-relationship design and was implemented with fo
 
 The relationship between orders and products was represented through an associative table. Its order and product identifiers formed a **composite primary key**, while also acting as foreign keys back to their respective tables.
 
-![Simplified relational architecture of the SQL Server order-management project, showing customers, orders, inventory, order products, and the C# application layer.](/blog/sqlserver-order-system-architecture.svg)
+![Simplified relational architecture of the SQL Server order-management project, showing customers, orders, inventory, order products, and the C# application layer.](/article-assets/sqlserver-order-system-architecture.svg)
 
 That design gave the application a clean way to express a many-to-many relationship: an order can contain several products, and a product can appear in several orders.
 
