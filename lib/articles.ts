@@ -1,11 +1,15 @@
-import fs from "node:fs";
-import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import readingTime from "reading-time";
 import hljs from "highlight.js";
+import articleSources from "@/content/articles.generated.json";
 
-const articlesDirectory = path.join(process.cwd(), "content", "articles");
+type ArticleSource = {
+  filename: string;
+  source: string;
+};
+
+const sources = articleSources as ArticleSource[];
 
 export type Article = {
   slug: string;
@@ -28,10 +32,9 @@ marked.use({
   },
 });
 
-function readArticle(filename: string): Article | null {
+function readArticle({ filename, source }: ArticleSource): Article | null {
   const slug = filename.replace(/\.mdx?$/, "");
-  const raw = fs.readFileSync(path.join(articlesDirectory, filename), "utf8");
-  const { data, content } = matter(raw);
+  const { data, content } = matter(source);
 
   if (data.published === false) return null;
 
@@ -48,11 +51,8 @@ function readArticle(filename: string): Article | null {
 }
 
 export function getAllArticles(): Article[] {
-  if (!fs.existsSync(articlesDirectory)) return [];
-
-  return fs
-    .readdirSync(articlesDirectory)
-    .filter((file) => /\.mdx?$/.test(file) && !file.startsWith("_"))
+  return sources
+    .filter(({ filename }) => /\.mdx?$/.test(filename) && !filename.startsWith("_"))
     .map(readArticle)
     .filter((article): article is Article => article !== null)
     .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
