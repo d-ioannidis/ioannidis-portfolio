@@ -28,7 +28,7 @@ export default function BlogPage() {
           <Link className="active" href="/blog">All</Link>
           {getTopics().map((topic) => <Link key={topic} href={`/blog/topic/${topicToSlug(topic)}`}>{topic}</Link>)}
         </div>
-        <h2 className="section-label" id="latest-articles">Latest articles</h2>
+        <h2 className="section-label" id="latest-articles">Latest articles <span className="article-count">{articles.length} articles</span></h2>
         {featured && <ArticleCard article={featured} featured />}
         <div className="article-grid">{remaining.map((article) => <ArticleCard key={article.slug} article={article} />)}</div>
       </section>

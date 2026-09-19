@@ -4,16 +4,19 @@ import { notFound } from "next/navigation";
 import { ArticleEngagement } from "@/components/article-engagement";
 import { BlogFooter } from "@/components/blog-footer";
 import { SiteHeader } from "@/components/site-header";
-import { formatDate, getAllArticles, getArticle, topicToSlug } from "@/lib/articles";
+import { formatDate, getAllArticles, getArticle, getArticleSummary, topicToSlug } from "@/lib/articles";
 
 type Props = { params: Promise<{ slug: string }> };
+
+export const dynamic = "force-static";
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return getAllArticles().map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const article = getArticle((await params).slug);
+  const article = getArticleSummary((await params).slug);
   if (!article) return {};
   return {
     title: `${article.title} | Dimitrios Ioannidis`,

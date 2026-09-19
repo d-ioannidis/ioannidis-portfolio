@@ -9,7 +9,12 @@ type ArticleSource = {
   source: string;
 };
 
+type ParsedArticle = Omit<Article, "content"> & {
+  rawContent: string;
+};
+
 const sources = articleSources as ArticleSource[];
+const renderedContent = new Map<string, string>();
 
 export type Article = {
   slug: string;
@@ -32,38 +37,58 @@ marked.use({
   },
 });
 
-function readArticle({ filename, source }: ArticleSource): Article | null {
-  const slug = filename.replace(/\.mdx?$/, "");
-  const { data, content } = matter(source);
+const articles: ParsedArticle[] = sources
+  .filter(({ filename }) => /\.mdx?$/.test(filename) && !filename.startsWith("_"))
+  .map(({ filename, source }) => {
+    const slug = filename.replace(/\.mdx?$/, "");
+    const { data, content } = matter(source);
 
-  if (data.published === false) return null;
+    if (data.published === false) return null;
 
-  return {
-    slug,
-    title: String(data.title),
-    description: String(data.description),
-    date: String(data.date),
-    topics: Array.isArray(data.topics) ? data.topics.map(String) : [],
-    featured: Boolean(data.featured),
-    readingTime: readingTime(content).text,
-    content: marked.parse(content) as string,
-  };
+    return {
+      slug,
+      title: String(data.title),
+      description: String(data.description),
+      date: String(data.date),
+      topics: Array.isArray(data.topics) ? data.topics.map(String) : [],
+      featured: Boolean(data.featured),
+      readingTime: readingTime(content).text,
+      rawContent: content,
+    };
+  })
+  .filter((article): article is ParsedArticle => article !== null)
+  .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+
+function summary(article: ParsedArticle): Article {
+  const { rawContent: _rawContent, ...metadata } = article;
+  return { ...metadata, content: "" };
 }
 
 export function getAllArticles(): Article[] {
-  return sources
-    .filter(({ filename }) => /\.mdx?$/.test(filename) && !filename.startsWith("_"))
-    .map(readArticle)
-    .filter((article): article is Article => article !== null)
-    .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+  return articles.map(summary);
+}
+
+export function getArticleSummary(slug: string) {
+  const article = articles.find((item) => item.slug === slug);
+  return article ? summary(article) : undefined;
 }
 
 export function getArticle(slug: string) {
-  return getAllArticles().find((article) => article.slug === slug);
+  const article = articles.find((item) => item.slug === slug);
+  if (!article) return undefined;
+
+  let content = renderedContent.get(slug);
+  if (!content) {
+    content = marked.parse(article.rawContent) as string;
+    renderedContent.set(slug, content);
+  }
+
+  const { rawContent: _rawContent, ...metadata } = article;
+  return { ...metadata, content };
 }
 
 export function getTopics() {
-  return [...new Set(getAllArticles().flatMap((article) => article.topics))].sort();
+  return [...new Set(articles.flatMap((article) => article.topics))].sort();
 }
 
 export function topicToSlug(topic: string) {
