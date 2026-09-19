@@ -476,7 +476,7 @@ em {
 }
 .article-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
@@ -508,7 +508,13 @@ em {
   letter-spacing: -.05em;
 }
 .article-card:not(.article-card-featured) h2 {
-  font-size: 36px;
+  font-size: 30px;
+}
+.article-count {
+  float: right;
+  color: #6c7480;
+  font: 700 10px var(--font-geist-mono), monospace;
+  letter-spacing: .08em;
 }
 .article-card h2 a:hover {
   color: var(--blue);
@@ -699,6 +705,11 @@ em {
   display: flex;
   gap: 25px;
   font-size: 13px;
+}
+@media (max-width: 1050px) {
+  .article-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 @media (max-width: 800px) {
   .shell {
