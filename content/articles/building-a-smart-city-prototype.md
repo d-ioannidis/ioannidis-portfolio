@@ -28,6 +28,13 @@ The first part of the thesis reviewed several open Smart City platforms, includi
 
 I selected **OpenRemote** for the implementation stage because it was directly usable for the project, had documentation that supported the required setup, and exposed the features needed for device and service integration.
 
+| Platform | Role in the thesis | Outcome |
+| --- | --- | --- |
+| Snap4City | Evaluated as an open Smart City platform | Considered |
+| OpenSmartCities | Evaluated as an open Smart City platform | Considered |
+| CityOS | Evaluated as an open Smart City platform | Considered |
+| OpenRemote | Evaluated for platform features, installation, and integrations | **Selected for implementation** |
+
 OpenRemote organizes a project around **assets**, **agents**, rules, dashboards, and location-aware data. An asset can represent something physical or logical — for example, a weather sensor, a light, a people counter, or a computer — while agents connect those assets to external services or data sources.
 
 That model gave the project a useful abstraction: instead of treating every integration as a one-off script, devices and services could be represented inside the same management environment.
@@ -49,6 +56,10 @@ That deployment involved more than simply starting a container. The thesis docum
 - and enabling encrypted HTTPS access.
 
 I deliberately leave the historical IP addresses, credentials, and host-specific values out of this article. The important part is the architecture: the Smart City platform was moved from a local experiment to an internet-accessible service that could run continuously.
+
+![Smart City prototype architecture showing OpenWeatherMap over HTTP, a Python MQTT client, Docker-hosted OpenRemote on an Ubuntu VPS, DNS and TLS, and the adaptive-lighting scenario.](/blog/bsc-smart-city-architecture.svg)
+
+*The deployment joined cloud hosting, API ingestion, MQTT device-style messaging, OpenRemote assets and rules, and a public-access layer into one prototype.*
 
 ## Adapting the map to the real area
 
@@ -110,6 +121,13 @@ Python / device-side client
 
 The HTTP example pulled data from a service. The MQTT example demonstrated data being pushed from an external client.
 
+| Integration | Direction | Protocol / format | Purpose |
+| --- | --- | --- | --- |
+| OpenWeatherMap → OpenRemote | Pull | HTTP + JSON | Ingest live weather variables |
+| Python client → OpenRemote | Push | MQTT over TLS | Simulate continuous device telemetry |
+| OpenRemote → assets | Internal mapping | Agents + attribute links | Store incoming values on platform assets |
+| Assets → automation | Event-driven | WHEN-THEN rules | Convert measurements into actions |
+
 Together they showed two different ways that a Smart City platform can ingest information from the systems around it.
 
 ## The public-lighting scenario
@@ -132,6 +150,10 @@ The rules described in the thesis included:
 | Fewer than 20 | 15% |
 | More than 50 | 80% |
 | 200 or more | 100% |
+
+![Bar chart showing selected adaptive-lighting rules: 0 percent at zero people, 15 percent below 20 people, 80 percent above 50 people, and 100 percent at 200 or more people.](/blog/bsc-lighting-response.svg)
+
+*These are selected rule examples documented in the thesis rather than a complete continuous mapping for every possible crowd size.*
 
 This was intentionally a straightforward scenario. The point was to demonstrate the control loop:
 
@@ -158,6 +180,13 @@ The implementation used simulated values, but the thesis also examined hardware 
 For lighting, it compared example smart-luminaire models including **ALURA LED**, **Q-DROME**, and **HESTIA GEN2**, looking at characteristics such as operating temperature, power consumption, light output, and efficiency.
 
 For people counting, it examined the **PeCo LC 2.0** family, including its measurement accuracy, Ethernet connectivity, operating range, and people-flow capacity.
+
+| Device considered | Power / consumption | Output or capacity | Notable specification |
+| --- | --- | --- | --- |
+| ALURA LED | 10.9–74 W | 800–7,100 lm | Up to 113 lm/W |
+| Q-DROME | 13–68 W | 1,970–9,720 lm | 110–136 lm/W |
+| HESTIA GEN2 | 10.5–102 W | 900–14,200 lm | Up to 164 lm/W |
+| PeCo LC 2.0 people counter | 7 W without heating; 30 W with heating | Up to 500 people/min | 98% stated accuracy; 32 m area width |
 
 That hardware comparison was important because an IoT architecture only becomes useful when the software's assumptions can eventually map onto devices with realistic interfaces and operating constraints.
 
