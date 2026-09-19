@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Controlled experiment task performance</title>
+  <desc id="desc">Bar chart showing fact-checking accuracy 86.6 percent, sentiment accuracy 83.86 percent, and emotion accuracy 49.71 percent.</desc>
+  <rect width="1200" height="620" fill="#f2f0e9"/>
+  <text x="60" y="62" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#101927">Controlled experiment: downstream task accuracy</text>
+  <text x="60" y="94" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#53606b">Broader sentiment was substantially easier than fine-grained emotion classification.</text>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <line x1="310" y1="150" x2="310" y2="520" stroke="#101927" stroke-width="2"/>
+    <line x1="310" y1="520" x2="1110" y2="520" stroke="#101927" stroke-width="2"/>
+    <g fill="#6c7480" font-size="13">
+      <text x="310" y="545" text-anchor="middle">0%</text><text x="470" y="545" text-anchor="middle">20%</text><text x="630" y="545" text-anchor="middle">40%</text><text x="790" y="545" text-anchor="middle">60%</text><text x="950" y="545" text-anchor="middle">80%</text><text x="1110" y="545" text-anchor="middle">100%</text>
+    </g>
+    <g stroke="#c9c6bc" stroke-width="1">
+      <line x1="470" y1="145" x2="470" y2="520"/><line x1="630" y1="145" x2="630" y2="520"/><line x1="790" y1="145" x2="790" y2="520"/><line x1="950" y1="145" x2="950" y2="520"/><line x1="1110" y1="145" x2="1110" y2="520"/>
+    </g>
+    <text x="285" y="225" text-anchor="end" font-size="18" font-weight="700" fill="#101927">Fact-checking</text>
+    <rect x="310" y="187" width="692.8" height="58" rx="4" fill="#4057ff"/><text x="1020" y="224" font-size="18" font-weight="700" fill="#101927">86.6%</text>
+    <text x="285" y="345" text-anchor="end" font-size="18" font-weight="700" fill="#101927">Sentiment</text>
+    <rect x="310" y="307" width="670.88" height="58" rx="4" fill="#d7ff43" stroke="#101927" stroke-width="1.5"/><text x="998" y="344" font-size="18" font-weight="700" fill="#101927">83.86%</text>
+    <text x="285" y="465" text-anchor="end" font-size="18" font-weight="700" fill="#101927">Emotion</text>
+    <rect x="310" y="427" width="397.68" height="58" rx="4" fill="#101927"/><text x="725" y="464" font-size="18" font-weight="700" fill="#101927">49.71%</text>
+  </g>
+  <text x="60" y="590" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#6c7480">Source: thesis Chapter 5 controlled-dataset evaluation. Accuracy is not directly comparable to ROC-AUC/PR-AUC anomaly metrics.</text>
+</svg>
