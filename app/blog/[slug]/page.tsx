@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleEngagement } from "@/components/article-engagement";
 import { BlogFooter } from "@/components/blog-footer";
 import { SiteHeader } from "@/components/site-header";
 import { formatDate, getAllArticles, getArticle, topicToSlug } from "@/lib/articles";
@@ -46,6 +47,7 @@ export default async function ArticlePage({ params }: Props) {
           <aside className="share-links" aria-label="Share article"><span>Share</span><a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(articleUrl)}`} target="_blank" rel="noreferrer">LinkedIn</a><a href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(articleUrl)}`}>Email</a></aside>
           <div className="article-body" dangerouslySetInnerHTML={{ __html: article.content }} />
         </div>
+        <div className="shell"><ArticleEngagement slug={article.slug} /></div>
         <nav className="article-pagination shell" aria-label="More articles">
           {newer ? <Link href={`/blog/${newer.slug}`}><span>Newer</span><strong>← {newer.title}</strong></Link> : <span />}
           {older ? <Link href={`/blog/${older.slug}`}><span>Older</span><strong>{older.title} →</strong></Link> : <span />}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+<title id="title">SQL Server order management system architecture</title>
+<desc id="desc">A C sharp desktop application connects through SqlClient and data adapters to SQL Server tables for customers, orders, inventory, and order products. Orders reference customers and order products connect orders with inventory.</desc>
+<rect width="1200" height="680" fill="#f2f0e9"/>
+<text x="60" y="60" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#101927">Order Management System</text>
+<text x="60" y="92" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#53606b">ER model → SQL Server → C# application</text>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3z" fill="#101927"/></marker></defs>
+<g font-family="Arial, Helvetica, sans-serif">
+<rect x="65" y="230" width="265" height="150" rx="9" fill="#101927"/>
+<text x="197.5" y="275" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">C# desktop app</text>
+<text x="197.5" y="307" text-anchor="middle" font-size="13" fill="#d7ff43">DataGridView · BindingSource</text>
+<text x="197.5" y="332" text-anchor="middle" font-size="13" fill="#fff">order history · inventory</text>
+<text x="197.5" y="355" text-anchor="middle" font-size="13" fill="#fff">customer/product images</text>
+<rect x="420" y="245" width="240" height="120" rx="8" fill="#4057ff" stroke="#101927" stroke-width="2"/>
+<text x="540" y="285" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">.NET data access</text>
+<text x="540" y="313" text-anchor="middle" font-size="13" fill="#fff">SqlConnection · adapters</text>
+<text x="540" y="337" text-anchor="middle" font-size="13" fill="#fff">DataSets · CommandBuilder</text>
+<rect x="750" y="125" width="380" height="450" rx="10" fill="#fff" stroke="#101927" stroke-width="2"/>
+<text x="940" y="164" text-anchor="middle" font-size="20" font-weight="700" fill="#101927">SQL Server</text>
+<rect x="800" y="205" width="130" height="86" rx="6" fill="#d7ff43" stroke="#101927"/>
+<text x="865" y="238" text-anchor="middle" font-size="15" font-weight="700">Customers</text>
+<text x="865" y="262" text-anchor="middle" font-size="11">PK customer</text>
+<rect x="960" y="205" width="130" height="86" rx="6" fill="#fff" stroke="#101927"/>
+<text x="1025" y="238" text-anchor="middle" font-size="15" font-weight="700">Orders</text>
+<text x="1025" y="262" text-anchor="middle" font-size="11">FK customer</text>
+<rect x="800" y="390" width="130" height="86" rx="6" fill="#fff" stroke="#101927"/>
+<text x="865" y="423" text-anchor="middle" font-size="15" font-weight="700">Inventory</text>
+<text x="865" y="447" text-anchor="middle" font-size="11">PK product</text>
+<rect x="960" y="390" width="130" height="86" rx="6" fill="#4057ff" stroke="#101927"/>
+<text x="1025" y="419" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">Order Products</text>
+<text x="1025" y="442" text-anchor="middle" font-size="11" fill="#fff">FK order + product</text>
+<text x="1025" y="459" text-anchor="middle" font-size="11" fill="#fff">composite PK</text>
+</g>
+<g fill="none" stroke="#101927" stroke-width="3" marker-end="url(#a)">
+<path d="M330 305 H420"/><path d="M660 305 H750"/><path d="M930 248 H960"/><path d="M1025 291 V390"/><path d="M930 433 H960"/>
+</g>
+<text x="355" y="289" font-family="Arial" font-size="12" fill="#4057ff">binding</text>
+<text x="685" y="289" font-family="Arial" font-size="12" fill="#4057ff">SQL</text>
+</svg>
